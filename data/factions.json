@@ -1,0 +1,127 @@
+{
+  "Loners": {
+    "name": "Loners",
+    "description": "Independent stalkers with no strong allegiance. Good for beginners, with balanced stats.",
+    "leader": "Sidorovich",
+    "baseZone": "Cordon",
+    "bonuses": {
+      "generalBonus": 5
+    },
+    "relations": {
+      "Duty": "neutral",
+      "Freedom": "neutral",
+      "Bandits": "hostile",
+      "Clear Sky": "friendly",
+      "Ecologists": "friendly",
+      "Mercenaries": "neutral"
+    }
+  },
+  "Duty": {
+    "name": "Duty",
+    "description": "Military-like organization determined to contain the Zone. Bonus to armor and combat.",
+    "leader": "General Voronin",
+    "baseZone": "Dark Valley",
+    "bonuses": {
+      "armorBonus": 10,
+      "combatBonus": 5
+    },
+    "relations": {
+      "Loners": "neutral",
+      "Freedom": "hostile",
+      "Bandits": "hostile",
+      "Clear Sky": "neutral",
+      "Ecologists": "friendly",
+      "Mercenaries": "hostile"
+    }
+  },
+  "Freedom": {
+    "name": "Freedom",
+    "description": "Anarchists who want to free the Zone. Bonus to stamina and exploration.",
+    "leader": "Lukash",
+    "baseZone": "Dark Valley",
+    "bonuses": {
+      "staminaBonus": 10,
+      "explorationBonus": 5
+    },
+    "relations": {
+      "Loners": "neutral",
+      "Duty": "hostile",
+      "Bandits": "neutral",
+      "Clear Sky": "friendly",
+      "Ecologists": "neutral",
+      "Mercenaries": "friendly"
+    }
+  },
+  "Bandits": {
+    "name": "Bandits",
+    "description": "Opportunistic criminals. Bonus to trading and scavenging.",
+    "leader": "Sultan",
+    "baseZone": "Garbage",
+    "bonuses": {
+      "tradingBonus": 10,
+      "scavengingBonus": 5
+    },
+    "relations": {
+      "Loners": "hostile",
+      "Duty": "hostile",
+      "Freedom": "neutral",
+      "Clear Sky": "hostile",
+      "Ecologists": "hostile",
+      "Mercenaries": "neutral"
+    }
+  },
+  "Clear Sky": {
+    "name": "Clear Sky",
+    "description": "Scientists and stalkers who research the Zone. Bonus to artifact handling.",
+    "leader": "Lebedev",
+    "baseZone": "Swamps",
+    "bonuses": {
+      "artifactBonus": 10,
+      "researchBonus": 5
+    },
+    "relations": {
+      "Loners": "friendly",
+      "Duty": "neutral",
+      "Freedom": "friendly",
+      "Bandits": "hostile",
+      "Ecologists": "friendly",
+      "Mercenaries": "neutral"
+    }
+  },
+  "Ecologists": {
+    "name": "Ecologists",
+    "description": "Scientific expedition. Bonus to research and radiation resistance.",
+    "leader": "Professor Sakharov",
+    "baseZone": "Yantar",
+    "bonuses": {
+      "researchBonus": 10,
+      "radiationResistance": 5
+    },
+    "relations": {
+      "Loners": "friendly",
+      "Duty": "friendly",
+      "Freedom": "neutral",
+      "Bandits": "hostile",
+      "Clear Sky": "friendly",
+      "Mercenaries": "neutral"
+    }
+  },
+  "Mercenaries": {
+    "name": "Mercenaries",
+    "description": "Guns for hire. Bonus to weapon handling and combat.",
+    "leader": "Dushman",
+    "baseZone": "Dark Valley",
+    "bonuses": {
+      "weaponBonus": 10,
+      "combatBonus": 5
+    },
+    "relations": {
+      "Loners": "neutral",
+      "Duty": "hostile",
+      "Freedom": "friendly",
+      "Bandits": "neutral",
+      "Clear Sky": "neutral",
+      "Ecologists": "neutral"
+    }
+  }
+}

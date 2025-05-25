@@ -1,0 +1,144 @@
+{
+  "blind_dog": {
+    "id": "blind_dog",
+    "name": "Blind Dog",
+    "description": "Mutated canines with poor eyesight but acute hearing and smell.",
+    "health": 40,
+    "damage": 10,
+    "accuracy": 60,
+    "rarity": 2,
+    "zones": ["Cordon", "Garbage", "Swamps"],
+    "reputation": 5,
+    "minRubles": 50,
+    "maxRubles": 150,
+    "drops": [
+      { "itemId": "junk_parts", "chance": 0.3 }
+    ]
+  },
+  "flesh": {
+    "id": "flesh",
+    "name": "Flesh",
+    "description": "Mutated boars with deformed bodies and distinctive snouts.",
+    "health": 70,
+    "damage": 15,
+    "accuracy": 50,
+    "rarity": 3,
+    "zones": ["Cordon", "Garbage", "Swamps"],
+    "reputation": 8,
+    "minRubles": 100,
+    "maxRubles": 200,
+    "drops": [
+      { "itemId": "junk_parts", "chance": 0.5 },
+      { "itemId": "medkit", "chance": 0.1 }
+    ]
+  },
+  "boar": {
+    "id": "boar",
+    "name": "Boar",
+    "description": "Aggressive mutated boars that charge at threats.",
+    "health": 100,
+    "damage": 20,
+    "accuracy": 70,
+    "rarity": 4,
+    "zones": ["Garbage", "Swamps", "Dark Valley"],
+    "reputation": 12,
+    "minRubles": 150,
+    "maxRubles": 300,
+    "drops": [
+      { "itemId": "junk_parts", "chance": 0.6 },
+      { "itemId": "medkit", "chance": 0.2 }
+    ]
+  },
+  "pseudodog": {
+    "id": "pseudodog",
+    "name": "Pseudodog",
+    "description": "Wolf-like mutants known for their pack tactics.",
+    "health": 80,
+    "damage": 25,
+    "accuracy": 80,
+    "rarity": 5,
+    "zones": ["Dark Valley", "Agroprom", "Yantar"],
+    "reputation": 15,
+    "minRubles": 200,
+    "maxRubles": 400,
+    "drops": [
+      { "itemId": "junk_parts", "chance": 0.5 },
+      { "itemId": "medkit", "chance": 0.2 },
+      { "itemId": "artifact_medusa", "chance": 0.05 }
+    ]
+  },
+  "snork": {
+    "id": "snork",
+    "name": "Snork",
+    "description": "Humanoid mutants with gas masks fused to their faces, known for their leaping attacks.",
+    "health": 90,
+    "damage": 30,
+    "accuracy": 85,
+    "rarity": 6,
+    "zones": ["Agroprom", "Yantar", "Red Forest"],
+    "reputation": 20,
+    "minRubles": 300,
+    "maxRubles": 500,
+    "drops": [
+      { "itemId": "junk_parts", "chance": 0.6 },
+      { "itemId": "medkit", "chance": 0.3 },
+      { "itemId": "artifact_medusa", "chance": 0.1 }
+    ]
+  },
+  "bloodsucker": {
+    "id": "bloodsucker",
+    "name": "Bloodsucker",
+    "description": "Tentacle-faced mutants capable of invisibility, extremely dangerous.",
+    "health": 150,
+    "damage": 40,
+    "accuracy": 90,
+    "rarity": 7,
+    "zones": ["Red Forest", "Pripyat", "Dark Valley"],
+    "reputation": 30,
+    "minRubles": 500,
+    "maxRubles": 800,
+    "drops": [
+      { "itemId": "junk_parts", "chance": 0.7 },
+      { "itemId": "medkit", "chance": 0.4 },
+      { "itemId": "artifact_stone_blood", "chance": 0.2 }
+    ]
+  },
+  "controller": {
+    "id": "controller",
+    "name": "Controller",
+    "description": "Psychic humanoid mutants capable of mind control.",
+    "health": 200,
+    "damage": 50,
+    "accuracy": 95,
+    "rarity": 8,
+    "zones": ["Pripyat", "CNPP"],
+    "reputation": 50,
+    "minRubles": 1000,
+    "maxRubles": 1500,
+    "drops": [
+      { "itemId": "junk_parts", "chance": 0.8 },
+      { "itemId": "medkit", "chance": 0.5 },
+      { "itemId": "artifact_stone_blood", "chance": 0.3 },
+      { "itemId": "artifact_moonlight", "chance": 0.1 }
+    ]
+  },
+  "chimera": {
+    "id": "chimera",
+    "name": "Chimera",
+    "description": "Fast, powerful four-legged mutants with incredible jumping abilities.",
+    "health": 250,
+    "damage": 60,
+    "accuracy": 85,
+    "rarity": 9,
+    "zones": ["Red Forest", "Pripyat", "CNPP"],
+    "reputation": 75,
+    "minRubles": 1500,
+    "maxRubles": 2000,
+    "drops": [
+      { "itemId": "junk_parts", "chance": 0.9 },
+      { "itemId": "medkit", "chance": 0.6 },
+      { "itemId": "artifact_stone_blood", "chance": 0.4 },
+      { "itemId": "artifact_moonlight", "chance": 0.2 }
+    ]
+  }
+}

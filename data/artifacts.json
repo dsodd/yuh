@@ -1,0 +1,68 @@
+{
+  "medusa": {
+    "id": "medusa",
+    "name": "Medusa",
+    "description": "A common electrical artifact formed in electro anomalies.",
+    "rarity": 3,
+    "weight": 0.5,
+    "itemId": "artifact_medusa",
+    "zones": ["Swamps", "Garbage", "Yantar"],
+    "effects": [
+      "+10% Electrical resistance",
+      "-5 Health/minute while equipped"
+    ]
+  },
+  "stone_blood": {
+    "id": "stone_blood",
+    "name": "Stone Blood",
+    "description": "An artifact with healing properties, formed in chemical anomalies.",
+    "rarity": 5,
+    "weight": 0.7,
+    "itemId": "artifact_stone_blood",
+    "zones": ["Dark Valley", "Yantar", "Red Forest"],
+    "effects": [
+      "+2 Health regeneration/minute",
+      "+10% Radiation while equipped"
+    ]
+  },
+  "moonlight": {
+    "id": "moonlight",
+    "name": "Moonlight",
+    "description": "A rare artifact that reduces radiation, formed in gravitational anomalies.",
+    "rarity": 7,
+    "weight": 0.4,
+    "itemId": "artifact_moonlight",
+    "zones": ["Yantar", "Red Forest", "Pripyat", "CNPP"],
+    "effects": [
+      "-3 Radiation/minute",
+      "-10% Stamina regeneration"
+    ]
+  },
+  "flash": {
+    "id": "flash",
+    "name": "Flash",
+    "description": "An electrical artifact that boosts stamina regeneration.",
+    "rarity": 4,
+    "weight": 0.3,
+    "itemId": "artifact_flash",
+    "zones": ["Garbage", "Dark Valley", "Agroprom"],
+    "effects": [
+      "+20% Stamina regeneration",
+      "+5% Radiation while equipped"
+    ]
+  },
+  "soul": {
+    "id": "soul",
+    "name": "Soul",
+    "description": "A mysterious artifact with unknown origin, very rare.",
+    "rarity": 9,
+    "weight": 0.6,
+    "itemId": "artifact_soul",
+    "zones": ["Pripyat", "CNPP"],
+    "effects": [
+      "+25% Health capacity",
+      "+15% Radiation resistance",
+      "-20% Stamina capacity"
+    ]
+  }
+}

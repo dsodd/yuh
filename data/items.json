@@ -1,0 +1,549 @@
+{
+  "junk_bolt": {
+    "id": "junk_bolt",
+    "name": "Bolt",
+    "description": "A common bolt used to detect anomalies. Every stalker carries some.",
+    "category": "junk",
+    "weight": 0.1,
+    "value": 5
+  },
+  "medkit": {
+    "id": "medkit",
+    "name": "Medkit",
+    "description": "Basic medical supplies to treat wounds and restore health.",
+    "category": "medical",
+    "weight": 0.5,
+    "value": 200,
+    "effect": {
+      "health": 50
+    }
+  },
+  "medkit_army": {
+    "id": "medkit_army",
+    "name": "Army Medkit",
+    "description": "Military-grade medical supplies with improved healing properties.",
+    "category": "medical",
+    "weight": 0.8,
+    "value": 500,
+    "effect": {
+      "health": 80
+    }
+  },
+  "medkit_scientific": {
+    "id": "medkit_scientific",
+    "name": "Scientific Medkit",
+    "description": "Advanced medical kit developed by Zone scientists. Highly effective.",
+    "category": "medical",
+    "weight": 1,
+    "value": 1000,
+    "effect": {
+      "health": 100
+    }
+  },
+  "antirad": {
+    "id": "antirad",
+    "name": "Anti-radiation drugs",
+    "description": "Reduces radiation exposure.",
+    "category": "medical",
+    "weight": 0.3,
+    "value": 300,
+    "effect": {
+      "radiation": -40
+    }
+  },
+  "vodka": {
+    "id": "vodka",
+    "name": "Vodka",
+    "description": "A bottle of vodka. Reduces a small amount of radiation but also impairs coordination.",
+    "category": "consumable",
+    "weight": 0.5,
+    "value": 100,
+    "effect": {
+      "radiation": -10,
+      "stamina": -20
+    }
+  },
+  "bread": {
+    "id": "bread",
+    "name": "Bread",
+    "description": "A loaf of bread. Restores some stamina.",
+    "category": "consumable",
+    "weight": 0.4,
+    "value": 50,
+    "effect": {
+      "stamina": 30
+    }
+  },
+  "canned_food": {
+    "id": "canned_food",
+    "name": "Canned Food",
+    "description": "Preserved food that remains edible in the Zone's harsh conditions.",
+    "category": "consumable",
+    "weight": 0.6,
+    "value": 120,
+    "effect": {
+      "stamina": 50
+    }
+  },
+  "energy_drink": {
+    "id": "energy_drink",
+    "name": "Energy Drink",
+    "description": "Caffeinated beverage that boosts energy temporarily.",
+    "category": "consumable",
+    "weight": 0.3,
+    "value": 200,
+    "effect": {
+      "stamina": 70
+    }
+  },
+  "detector_basic": {
+    "id": "detector_basic",
+    "name": "Echo Detector",
+    "description": "Basic anomaly and artifact detector. Low range but reliable.",
+    "category": "detector",
+    "weight": 0.5,
+    "value": 800
+  },
+  "detector_advanced": {
+    "id": "detector_advanced",
+    "name": "Bear Detector",
+    "description": "Advanced detector that can locate more valuable artifacts.",
+    "category": "detector",
+    "weight": 0.7,
+    "value": 2000
+  },
+  "detector_veles": {
+    "id": "detector_veles",
+    "name": "Veles Detector",
+    "description": "Cutting-edge artifact detector with exceptional range and accuracy.",
+    "category": "detector",
+    "weight": 1,
+    "value": 5000
+  },
+  "pm_pistol": {
+    "id": "pm_pistol",
+    "name": "PM Pistol",
+    "description": "Standard 9x18mm pistol. Reliable but weak.",
+    "category": "weapon",
+    "weight": 1,
+    "value": 1000,
+    "damage": 15,
+    "accuracy": 70,
+    "reliability": 80,
+    "type": "sidearm"
+  },
+  "fort_pistol": {
+    "id": "fort_pistol",
+    "name": "Fort-12 Pistol",
+    "description": "Ukrainian 9x18mm pistol with good stopping power.",
+    "category": "weapon",
+    "weight": 1.2,
+    "value": 1500,
+    "damage": 20,
+    "accuracy": 75,
+    "reliability": 85,
+    "type": "sidearm"
+  },
+  "sawed_off": {
+    "id": "sawed_off",
+    "name": "Sawed-off Shotgun",
+    "description": "Double-barrel 12-gauge with shortened barrels. Deadly at close range.",
+    "category": "weapon",
+    "weight": 2.5,
+    "value": 2000,
+    "damage": 50,
+    "accuracy": 40,
+    "reliability": 70,
+    "type": "shotgun"
+  },
+  "toz34": {
+    "id": "toz34",
+    "name": "TOZ-34 Shotgun",
+    "description": "Double-barrel hunting shotgun with longer range.",
+    "category": "weapon",
+    "weight": 3,
+    "value": 4000,
+    "damage": 60,
+    "accuracy": 50,
+    "reliability": 90,
+    "type": "shotgun"
+  },
+  "ak74": {
+    "id": "ak74",
+    "name": "AK-74",
+    "description": "Standard 5.45x39mm assault rifle. The Zone's workhorse.",
+    "category": "weapon",
+    "weight": 3.5,
+    "value": 6000,
+    "damage": 30,
+    "accuracy": 70,
+    "reliability": 95,
+    "type": "assault_rifle"
+  },
+  "abakan": {
+    "id": "abakan",
+    "name": "AN-94 Abakan",
+    "description": "Advanced Russian assault rifle with 2-round burst capability.",
+    "category": "weapon",
+    "weight": 3.8,
+    "value": 10000,
+    "damage": 35,
+    "accuracy": 80,
+    "reliability": 80,
+    "type": "assault_rifle"
+  },
+  "svd": {
+    "id": "svd",
+    "name": "SVD Dragunov",
+    "description": "Semi-automatic sniper rifle with excellent accuracy.",
+    "category": "weapon",
+    "weight": 4.5,
+    "value": 15000,
+    "damage": 70,
+    "accuracy": 90,
+    "reliability": 85,
+    "type": "sniper_rifle"
+  },
+  "gauss": {
+    "id": "gauss",
+    "name": "Gauss Rifle",
+    "description": "Experimental electromagnetic weapon. Extremely powerful and accurate.",
+    "category": "weapon",
+    "weight": 5,
+    "value": 50000,
+    "damage": 100,
+    "accuracy": 95,
+    "reliability": 60,
+    "type": "special"
+  },
+  "leather_jacket": {
+    "id": "leather_jacket",
+    "name": "Leather Jacket",
+    "description": "Basic protection favored by rookies. Offers minimal protection.",
+    "category": "armor",
+    "weight": 3,
+    "value": 1000,
+    "protection": {
+      "physical": 10,
+      "radiation": 5,
+      "anomaly": 5
+    }
+  },
+  "stalker_suit": {
+    "id": "stalker_suit",
+    "name": "Stalker Suit",
+    "description": "Standard protective suit balancing protection and mobility.",
+    "category": "armor",
+    "weight": 5,
+    "value": 5000,
+    "protection": {
+      "physical": 25,
+      "radiation": 20,
+      "anomaly": 20
+    }
+  },
+  "ssp_suit": {
+    "id": "ssp_suit",
+    "name": "SSP-99 Ecologist Suit",
+    "description": "Scientific suit with exceptional anomaly and radiation protection.",
+    "category": "armor",
+    "weight": 8,
+    "value": 15000,
+    "protection": {
+      "physical": 20,
+      "radiation": 90,
+      "anomaly": 80
+    }
+  },
+  "exo": {
+    "id": "exo",
+    "name": "Exoskeleton",
+    "description": "Heavy military exoskeleton with the best physical protection available.",
+    "category": "armor",
+    "weight": 15,
+    "value": 30000,
+    "protection": {
+      "physical": 70,
+      "radiation": 30,
+      "anomaly": 40
+    },
+    "effect": {
+      "carryWeight": 30
+    }
+  },
+  "mutant_part_bloodsucker": {
+    "id": "mutant_part_bloodsucker",
+    "name": "Bloodsucker Tentacles",
+    "description": "Tentacles harvested from a bloodsucker. Valuable to scientists and collectors.",
+    "category": "mutant_part",
+    "weight": 0.5,
+    "value": 800
+  },
+  "mutant_part_snork": {
+    "id": "mutant_part_snork",
+    "name": "Snork Foot",
+    "description": "The powerful, springy foot of a snork. Sought after for its unique tissue structure.",
+    "category": "mutant_part",
+    "weight": 0.5,
+    "value": 500
+  },
+  "mutant_part_pseudodog": {
+    "id": "mutant_part_pseudodog",
+    "name": "Pseudodog Tail",
+    "description": "The tail of a pseudodog, said to contain special glands with unusual properties.",
+    "category": "mutant_part",
+    "weight": 0.4,
+    "value": 450
+  },
+  "mutant_part_chimera": {
+    "id": "mutant_part_chimera",
+    "name": "Chimera Claw",
+    "description": "The deadly claw of a chimera. Extremely rare and valuable.",
+    "category": "mutant_part",
+    "weight": 0.7,
+    "value": 1200
+  },
+  "mutant_part_controller": {
+    "id": "mutant_part_controller",
+    "name": "Controller Brain",
+    "description": "The brain of a controller, still exhibiting strange psionic activity.",
+    "category": "mutant_part",
+    "weight": 0.6,
+    "value": 1000
+  },
+  "mutant_part_burer": {
+    "id": "mutant_part_burer",
+    "name": "Burer Hand",
+    "description": "The hand of a burer, which still twitches with residual telekinetic energy.",
+    "category": "mutant_part",
+    "weight": 0.5,
+    "value": 750
+  },
+  "mutant_part_flesh": {
+    "id": "mutant_part_flesh",
+    "name": "Flesh Eye",
+    "description": "The eye of a flesh mutant. Common but still has scientific value.",
+    "category": "mutant_part",
+    "weight": 0.3,
+    "value": 300
+  },
+  "mutant_part_boar": {
+    "id": "mutant_part_boar",
+    "name": "Boar Hoof",
+    "description": "The hoof of a mutated boar, hardened by radiation.",
+    "category": "mutant_part",
+    "weight": 0.5,
+    "value": 350
+  },
+  "mutant_part_poltergeist": {
+    "id": "mutant_part_poltergeist",
+    "name": "Poltergeist Essence",
+    "description": "A strange glowing substance harvested from a poltergeist. Highly unstable.",
+    "category": "mutant_part",
+    "weight": 0.4,
+    "value": 700
+  },
+  "mutant_part_pseudogiant": {
+    "id": "mutant_part_pseudogiant",
+    "name": "Pseudogiant Heart",
+    "description": "The massive heart of a pseudogiant. Extremely valuable to researchers.",
+    "category": "mutant_part",
+    "weight": 1,
+    "value": 1500
+  },
+  "fireball": {
+    "id": "fireball",
+    "name": "Fireball",
+    "description": "A spherical artifact that generates heat.",
+    "category": "artifact",
+    "weight": 0.5,
+    "value": 1500,
+    "rarity": 3,
+    "effects": [
+      "Increases radiation resistance",
+      "Emits heat that can keep you warm"
+    ]
+  },
+  "crystal_thorn": {
+    "id": "crystal_thorn",
+    "name": "Crystal Thorn",
+    "description": "A crystalline artifact formed in thermal anomalies.",
+    "category": "artifact",
+    "weight": 0.4,
+    "value": 2000,
+    "rarity": 4,
+    "effects": [
+      "Increases burn resistance",
+      "Slightly increases radiation"
+    ]
+  },
+  "droplets": {
+    "id": "droplets",
+    "name": "Droplets",
+    "description": "Solidified drops of molten material that emit heat.",
+    "category": "artifact",
+    "weight": 0.3,
+    "value": 1200,
+    "rarity": 2,
+    "effects": [
+      "Increases stamina recovery",
+      "Increases radiation"
+    ]
+  },
+  "battery": {
+    "id": "battery",
+    "name": "Battery",
+    "description": "A heavy artifact that generates electrical energy.",
+    "category": "artifact",
+    "weight": 0.7,
+    "value": 2500,
+    "rarity": 4,
+    "effects": [
+      "Increases energy weapon damage",
+      "Increases electrical shock resistance"
+    ]
+  },
+  "sparkler": {
+    "id": "sparkler",
+    "name": "Sparkler",
+    "description": "An artifact that emits electrical discharges.",
+    "category": "artifact",
+    "weight": 0.4,
+    "value": 1800,
+    "rarity": 3,
+    "effects": [
+      "Reduces stamina consumption",
+      "Vulnerable to water"
+    ]
+  },
+  "flash": {
+    "id": "flash",
+    "name": "Flash",
+    "description": "A highly energetic artifact that creates light.",
+    "category": "artifact",
+    "weight": 0.3,
+    "value": 3000,
+    "rarity": 5,
+    "effects": [
+      "Enhances night vision",
+      "Increases electrical vulnerability"
+    ]
+  },
+  "stone_flower": {
+    "id": "stone_flower",
+    "name": "Stone Flower",
+    "description": "A mineral formation from gravitational anomalies.",
+    "category": "artifact",
+    "weight": 0.6,
+    "value": 1400,
+    "rarity": 2,
+    "effects": [
+      "Increases carrying capacity",
+      "Slows movement slightly"
+    ]
+  },
+  "night_star": {
+    "id": "night_star",
+    "name": "Night Star",
+    "description": "A rare artifact that bends light and gravity.",
+    "category": "artifact",
+    "weight": 0.4,
+    "value": 3500,
+    "rarity": 5,
+    "effects": [
+      "Improves stealth",
+      "Increases gravity resistance"
+    ]
+  },
+  "soul": {
+    "id": "soul",
+    "name": "Soul",
+    "description": "A mysterious artifact that seems to hover in place.",
+    "category": "artifact",
+    "weight": 0.3,
+    "value": 2800,
+    "rarity": 4,
+    "effects": [
+      "Reduces fall damage",
+      "Slight anti-gravity effect"
+    ]
+  },
+  "bubble": {
+    "id": "bubble",
+    "name": "Bubble",
+    "description": "A gelatinous artifact that absorbs chemicals.",
+    "category": "artifact",
+    "weight": 0.5,
+    "value": 1300,
+    "rarity": 2,
+    "effects": [
+      "Increases chemical resistance",
+      "Purifies water"
+    ]
+  },
+  "jellyfish": {
+    "id": "jellyfish",
+    "name": "Jellyfish",
+    "description": "A translucent artifact with chemical properties.",
+    "category": "artifact",
+    "weight": 0.4,
+    "value": 1700,
+    "rarity": 3,
+    "effects": [
+      "Reduces radiation",
+      "Vulnerable to physical damage"
+    ]
+  },
+  "slug": {
+    "id": "slug",
+    "name": "Slug",
+    "description": "A mucus-like artifact that neutralizes toxins.",
+    "category": "artifact",
+    "weight": 0.3,
+    "value": 1600,
+    "rarity": 3,
+    "effects": [
+      "Immune to poison damage",
+      "Reduces health recovery"
+    ]
+  },
+  "brain": {
+    "id": "brain",
+    "name": "Brain",
+    "description": "A pulsating artifact that affects psionic fields.",
+    "category": "artifact",
+    "weight": 0.5,
+    "value": 3200,
+    "rarity": 5,
+    "effects": [
+      "Increases psi resistance",
+      "Reduces radiation from artifacts"
+    ]
+  },
+  "moonlight": {
+    "id": "moonlight",
+    "name": "Moonlight",
+    "description": "A luminescent artifact that manipulates mental states.",
+    "category": "artifact",
+    "weight": 0.4,
+    "value": 2400,
+    "rarity": 4,
+    "effects": [
+      "Enhances perception",
+      "Causes occasional hallucinations"
+    ]
+  },
+  "compass": {
+    "id": "compass",
+    "name": "Compass",
+    "description": "An artifact that seems to distort space around it.",
+    "category": "artifact",
+    "weight": 0.6,
+    "value": 1900,
+    "rarity": 3,
+    "effects": [
+      "Senses nearby anomalies",
+      "Slightly affects navigation"
+    ]
+  }
+}

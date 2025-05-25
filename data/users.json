@@ -1,0 +1,40 @@
+{
+  "default": {},
+  "769615351540613192": {
+    "id": "769615351540613192",
+    "name": "dsodd",
+    "faction": null,
+    "rank": 1,
+    "reputation": 10,
+    "health": 11,
+    "radiation": 0,
+    "stamina": 100,
+    "rubles": 1500,
+    "inventory": [
+      "junk_bolt",
+      "medkit",
+      "pm_pistol"
+    ],
+    "inventoryWeight": 0.6,
+    "currentZone": "rookie_village",
+    "equipped": {
+      "weapon": "pm_pistol",
+      "armor": null,
+      "artifacts": []
+    },
+    "bonuses": {},
+    "activeQuests": [],
+    "completedQuests": [
+      "q001"
+    ],
+    "cooldowns": {
+      "hunt": 1747659947977,
+      "travel": 0,
+      "scout": 0,
+      "camp": 0,
+      "detect": 0,
+      "explore": 1747662061555
+    },
+    "statusEffects": []
+  }
+}

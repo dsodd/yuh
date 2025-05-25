@@ -1,0 +1,232 @@
+{
+  "bloodsucker": {
+    "id": "bloodsucker",
+    "name": "Bloodsucker",
+    "type": "Humanoid mutant",
+    "traits": "Highly aggressive; known for turning invisible.",
+    "attack": "Melee slashes, followed by a deadly grab attack.",
+    "behavior": "Ambush predator; uses stealth to approach targets unseen.",
+    "location": "Dark, enclosed areas like tunnels or basements.",
+    "image": "bloodsucker.png",
+    "difficulty": 8,
+    "danger": "High",
+    "xp": 80,
+    "loot": [
+      { "itemId": "mutant_part_bloodsucker", "name": "Bloodsucker Tentacles", "value": 800, "chance": 0.8 }
+    ],
+    "rubles": {
+      "min": 300,
+      "max": 600
+    },
+    "health": 180,
+    "damage": 40,
+    "escape_chance": 0.3
+  },
+  "snork": {
+    "id": "snork",
+    "name": "Snork",
+    "type": "Human mutant (ex-soldier)",
+    "traits": "Fast, erratic movement; agile and unpredictable.",
+    "attack": "Leaps toward targets and slashes with claws.",
+    "behavior": "Typically found in groups, highly territorial.",
+    "location": "Abandoned urban areas and undergrounds.",
+    "image": "snork.png",
+    "difficulty": 6,
+    "danger": "Medium",
+    "xp": 60,
+    "loot": [
+      { "itemId": "mutant_part_snork", "name": "Snork Foot", "value": 500, "chance": 0.7 }
+    ],
+    "rubles": {
+      "min": 200,
+      "max": 400
+    },
+    "health": 120,
+    "damage": 25,
+    "escape_chance": 0.4
+  },
+  "pseudodog": {
+    "id": "pseudodog",
+    "name": "Pseudodog",
+    "type": "Canine mutant",
+    "traits": "Often appears with phantom clones (illusory duplicates).",
+    "attack": "Bite and pounce attacks.",
+    "behavior": "Uses numbers and illusions to confuse targets.",
+    "location": "Forests, fields, and outskirts of the Zone.",
+    "image": "psuedo_dog.png",
+    "difficulty": 5,
+    "danger": "Medium",
+    "xp": 50,
+    "loot": [
+      { "itemId": "mutant_part_pseudodog", "name": "Pseudodog Tail", "value": 450, "chance": 0.7 }
+    ],
+    "rubles": {
+      "min": 150,
+      "max": 350
+    },
+    "health": 100,
+    "damage": 20,
+    "escape_chance": 0.5
+  },
+  "chimera": {
+    "id": "chimera",
+    "name": "Chimera",
+    "type": "Apex predator mutant",
+    "traits": "Strong, fast, and extremely dangerous.",
+    "attack": "Powerful leaping strikes that kill in one or two hits.",
+    "behavior": "Nocturnal; prefers attacking at night.",
+    "location": "Rare; found in remote, high-danger zones.",
+    "image": "chimera.png",
+    "difficulty": 9,
+    "danger": "Very High",
+    "xp": 100,
+    "loot": [
+      { "itemId": "mutant_part_chimera", "name": "Chimera Claw", "value": 1200, "chance": 0.8 }
+    ],
+    "rubles": {
+      "min": 500,
+      "max": 1000
+    },
+    "health": 250,
+    "damage": 60,
+    "escape_chance": 0.2
+  },
+  "controller": {
+    "id": "controller",
+    "name": "Controller",
+    "type": "Psychic mutant",
+    "traits": "Uses psychic attacks to dominate or confuse.",
+    "attack": "Mental stuns, hallucinations, and forced movement.",
+    "behavior": "Slow-moving but deadly at close range.",
+    "location": "Underground labs and heavily irradiated zones.",
+    "image": "controller.png",
+    "difficulty": 8,
+    "danger": "High",
+    "xp": 90,
+    "loot": [
+      { "itemId": "mutant_part_controller", "name": "Controller Brain", "value": 1000, "chance": 0.6 }
+    ],
+    "rubles": {
+      "min": 400,
+      "max": 800
+    },
+    "health": 150,
+    "damage": 50,
+    "escape_chance": 0.3
+  },
+  "burer": {
+    "id": "burer",
+    "name": "Burer",
+    "type": "Dwarf-like mutant",
+    "traits": "Psychic telekinesis; can pull weapons from stalkers' hands.",
+    "attack": "Throws objects and telekinetically crushes enemies.",
+    "behavior": "Prefers indoor combat; hides behind cover.",
+    "location": "Labs, bunkers, and underground facilities.",
+    "image": "burer.png",
+    "difficulty": 7,
+    "danger": "High",
+    "xp": 70,
+    "loot": [
+      { "itemId": "mutant_part_burer", "name": "Burer Hand", "value": 750, "chance": 0.6 }
+    ],
+    "rubles": {
+      "min": 300,
+      "max": 600
+    },
+    "health": 140,
+    "damage": 35,
+    "escape_chance": 0.3
+  },
+  "flesh": {
+    "id": "flesh",
+    "name": "Flesh",
+    "type": "Mutated pig",
+    "traits": "Passive until provoked; fleshy, malformed body.",
+    "attack": "Short-range charge or bite.",
+    "behavior": "Grazing in herds; runs if threatened.",
+    "location": "Open fields and farmlands.",
+    "image": "flesh.png",
+    "difficulty": 3,
+    "danger": "Low",
+    "xp": 30,
+    "loot": [
+      { "itemId": "mutant_part_flesh", "name": "Flesh Eye", "value": 300, "chance": 0.8 }
+    ],
+    "rubles": {
+      "min": 100,
+      "max": 200
+    },
+    "health": 80,
+    "damage": 15,
+    "escape_chance": 0.6
+  },
+  "boar": {
+    "id": "boar",
+    "name": "Boar",
+    "type": "Mutated wild boar",
+    "traits": "Heavily built; extremely aggressive.",
+    "attack": "Ramming charge with tusks.",
+    "behavior": "Will charge on sight; persistent.",
+    "location": "Forests and grassy plains.",
+    "image": "boar.png",
+    "difficulty": 4,
+    "danger": "Medium",
+    "xp": 40,
+    "loot": [
+      { "itemId": "mutant_part_boar", "name": "Boar Hoof", "value": 350, "chance": 0.7 }
+    ],
+    "rubles": {
+      "min": 150,
+      "max": 300
+    },
+    "health": 120,
+    "damage": 20,
+    "escape_chance": 0.5
+  },
+  "poltergeist": {
+    "id": "poltergeist",
+    "name": "Poltergeist",
+    "type": "Invisible psychic entity",
+    "traits": "Can hurl objects or fireballs from a distance.",
+    "attack": "Launches psychic projectiles.",
+    "behavior": "Invisibility makes it hard to spot.",
+    "location": "Old buildings, labs, and anomaly zones.",
+    "image": "electric_poltergeist.png",
+    "difficulty": 7,
+    "danger": "Medium-High",
+    "xp": 65,
+    "loot": [
+      { "itemId": "mutant_part_poltergeist", "name": "Poltergeist Essence", "value": 700, "chance": 0.5 }
+    ],
+    "rubles": {
+      "min": 250,
+      "max": 500
+    },
+    "health": 100,
+    "damage": 30,
+    "escape_chance": 0.4
+  },
+  "pseudogiant": {
+    "id": "pseudogiant",
+    "name": "Pseudogiant",
+    "type": "Massive humanoid brute",
+    "traits": "Emits shockwaves to knock down prey.",
+    "attack": "Ground-pound shockwaves and strong melee strikes.",
+    "behavior": "Very slow, but incredibly durable.",
+    "location": "Endgame or late-zone areas like CNPP.",
+    "image": "pseudo_giant.png",
+    "difficulty": 10,
+    "danger": "Extreme",
+    "xp": 120,
+    "loot": [
+      { "itemId": "mutant_part_pseudogiant", "name": "Pseudogiant Heart", "value": 1500, "chance": 0.7 }
+    ],
+    "rubles": {
+      "min": 600,
+      "max": 1200
+    },
+    "health": 300,
+    "damage": 70,
+    "escape_chance": 0.1
+  }
+}
