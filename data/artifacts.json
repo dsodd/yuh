@@ -1,3 +1,4 @@
+
 {
   "medusa": {
     "id": "medusa",
@@ -5,7 +6,8 @@
     "description": "A common electrical artifact formed in electro anomalies.",
     "rarity": 3,
     "weight": 0.5,
-    "itemId": "artifact_medusa",
+    "value": 1000,
+    "anomalyType": "electrical",
     "zones": ["Swamps", "Garbage", "Yantar"],
     "effects": [
       "+10% Electrical resistance",
@@ -18,7 +20,8 @@
     "description": "An artifact with healing properties, formed in chemical anomalies.",
     "rarity": 5,
     "weight": 0.7,
-    "itemId": "artifact_stone_blood",
+    "value": 2500,
+    "anomalyType": "chemical",
     "zones": ["Dark Valley", "Yantar", "Red Forest"],
     "effects": [
       "+2 Health regeneration/minute",
@@ -31,7 +34,8 @@
     "description": "A rare artifact that reduces radiation, formed in gravitational anomalies.",
     "rarity": 7,
     "weight": 0.4,
-    "itemId": "artifact_moonlight",
+    "value": 4500,
+    "anomalyType": "psychic",
     "zones": ["Yantar", "Red Forest", "Pripyat", "CNPP"],
     "effects": [
       "-3 Radiation/minute",
@@ -44,7 +48,8 @@
     "description": "An electrical artifact that boosts stamina regeneration.",
     "rarity": 4,
     "weight": 0.3,
-    "itemId": "artifact_flash",
+    "value": 1800,
+    "anomalyType": "electrical",
     "zones": ["Garbage", "Dark Valley", "Agroprom"],
     "effects": [
       "+20% Stamina regeneration",
@@ -57,12 +62,181 @@
     "description": "A mysterious artifact with unknown origin, very rare.",
     "rarity": 9,
     "weight": 0.6,
-    "itemId": "artifact_soul",
+    "value": 8000,
+    "anomalyType": "gravitational",
     "zones": ["Pripyat", "CNPP"],
     "effects": [
       "+25% Health capacity",
       "+15% Radiation resistance",
       "-20% Stamina capacity"
+    ]
+  },
+  "fireball": {
+    "id": "fireball",
+    "name": "Fireball",
+    "description": "A spherical artifact that generates heat.",
+    "rarity": 3,
+    "weight": 0.5,
+    "value": 1500,
+    "anomalyType": "thermal",
+    "zones": ["Garbage", "Dark Valley", "Red Forest"],
+    "effects": [
+      "+15% Burn resistance",
+      "Emits heat that reduces stamina loss in cold"
+    ]
+  },
+  "crystal_thorn": {
+    "id": "crystal_thorn",
+    "name": "Crystal Thorn",
+    "description": "A crystalline artifact formed in thermal anomalies.",
+    "rarity": 4,
+    "weight": 0.4,
+    "value": 2000,
+    "anomalyType": "thermal",
+    "zones": ["Red Forest", "Yantar", "Dark Valley"],
+    "effects": [
+      "+25% Burn resistance",
+      "+5% Radiation while equipped"
+    ]
+  },
+  "droplets": {
+    "id": "droplets",
+    "name": "Droplets",
+    "description": "Solidified drops of molten material that emit heat.",
+    "rarity": 2,
+    "weight": 0.3,
+    "value": 1200,
+    "anomalyType": "thermal",
+    "zones": ["Garbage", "Swamps", "Dark Valley"],
+    "effects": [
+      "+10% Stamina recovery",
+      "+8% Radiation while equipped"
+    ]
+  },
+  "battery": {
+    "id": "battery",
+    "name": "Battery",
+    "description": "A heavy artifact that generates electrical energy.",
+    "rarity": 4,
+    "weight": 0.7,
+    "value": 2500,
+    "anomalyType": "electrical",
+    "zones": ["Agroprom", "Yantar", "Red Forest"],
+    "effects": [
+      "+20% Energy weapon damage",
+      "+15% Electrical shock resistance"
+    ]
+  },
+  "sparkler": {
+    "id": "sparkler",
+    "name": "Sparkler",
+    "description": "An artifact that emits electrical discharges.",
+    "rarity": 3,
+    "weight": 0.4,
+    "value": 1800,
+    "anomalyType": "electrical",
+    "zones": ["Garbage", "Agroprom", "Dark Valley"],
+    "effects": [
+      "+15% Stamina consumption reduction",
+      "Vulnerable to water damage"
+    ]
+  },
+  "stone_flower": {
+    "id": "stone_flower",
+    "name": "Stone Flower",
+    "description": "A mineral formation from gravitational anomalies.",
+    "rarity": 2,
+    "weight": 0.6,
+    "value": 1400,
+    "anomalyType": "gravitational",
+    "zones": ["Swamps", "Garbage", "Yantar"],
+    "effects": [
+      "+10kg Carrying capacity",
+      "-5% Movement speed"
+    ]
+  },
+  "night_star": {
+    "id": "night_star",
+    "name": "Night Star",
+    "description": "A rare artifact that bends light and gravity.",
+    "rarity": 5,
+    "weight": 0.4,
+    "value": 3500,
+    "anomalyType": "gravitational",
+    "zones": ["Red Forest", "Pripyat", "CNPP"],
+    "effects": [
+      "+20% Stealth improvement",
+      "+25% Gravity resistance"
+    ]
+  },
+  "bubble": {
+    "id": "bubble",
+    "name": "Bubble",
+    "description": "A gelatinous artifact that absorbs chemicals.",
+    "rarity": 2,
+    "weight": 0.5,
+    "value": 1300,
+    "anomalyType": "chemical",
+    "zones": ["Swamps", "Dark Valley", "Yantar"],
+    "effects": [
+      "+20% Chemical resistance",
+      "Purifies consumed water"
+    ]
+  },
+  "jellyfish": {
+    "id": "jellyfish",
+    "name": "Jellyfish",
+    "description": "A translucent artifact with chemical properties.",
+    "rarity": 3,
+    "weight": 0.4,
+    "value": 1700,
+    "anomalyType": "chemical",
+    "zones": ["Swamps", "Yantar", "Red Forest"],
+    "effects": [
+      "-2 Radiation/minute",
+      "Vulnerable to physical damage"
+    ]
+  },
+  "slug": {
+    "id": "slug",
+    "name": "Slug",
+    "description": "A mucus-like artifact that neutralizes toxins.",
+    "rarity": 3,
+    "weight": 0.3,
+    "value": 1600,
+    "anomalyType": "chemical",
+    "zones": ["Swamps", "Dark Valley", "Agroprom"],
+    "effects": [
+      "Immunity to poison damage",
+      "-15% Health recovery rate"
+    ]
+  },
+  "brain": {
+    "id": "brain",
+    "name": "Brain",
+    "description": "A pulsating artifact that affects psionic fields.",
+    "rarity": 5,
+    "weight": 0.5,
+    "value": 3200,
+    "anomalyType": "psychic",
+    "zones": ["Red Forest", "Pripyat", "CNPP"],
+    "effects": [
+      "+30% Psi resistance",
+      "-25% Radiation from artifacts"
+    ]
+  },
+  "compass": {
+    "id": "compass",
+    "name": "Compass",
+    "description": "An artifact that seems to distort space around it.",
+    "rarity": 3,
+    "weight": 0.6,
+    "value": 1900,
+    "anomalyType": "psychic",
+    "zones": ["Yantar", "Red Forest", "Agroprom"],
+    "effects": [
+      "Senses nearby anomalies",
+      "Slightly affects navigation"
     ]
   }
 }

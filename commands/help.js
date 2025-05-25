@@ -1,163 +1,250 @@
 
-// Get prefix from .env
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
-const config = require('../config');
+const { EmbedBuilder } = require('discord.js');
 const embedCreator = require('../utils/embedCreator');
 
+// Get prefix from .env
 const PREFIX = process.env.PREFIX || '!';
 
 module.exports = {
   name: 'help',
-  aliases: ['h', 'commands'],
-  description: 'Show help information for STALKERNet commands',
-  
+  aliases: ['commands', 'guide'],
+  description: 'Display all available commands and their usage',
+
   async execute(message, args) {
-    // Command pages for pagination
-    const pages = [
-      {
-        title: 'STALKERNet - Basic Commands',
-        description: 'Welcome to the Zone, Stalker. Here are the basic commands that will help you survive.',
-        fields: [
-          { 
-            name: '📋 Profile & Faction Commands',
-            value: `\`${PREFIX}profile\`\n└ View your STALKERNet profile\n\n\`${PREFIX}factions [join|leave|info] [faction]\`\n└ View, join, or leave factions\n\n\`${PREFIX}inventory\`\n└ Manage your items (Aliases: inv)\n\n\`${PREFIX}help\`\n└ Show this help menu (Aliases: h, commands)` 
-          },
-          {
-            name: '🗺️ Travel & Exploration',
-            value: `\`${PREFIX}travel [zone|scout] [zone_name]\`\n└ Move between zones or scout areas\n\n\`${PREFIX}explore\`\n└ Explore the current area for items\n\n\`${PREFIX}weather\`\n└ Check weather conditions (Aliases: conditions, sky)`
-          }
-        ],
-        footer: 'Page 1/3 | Basic Commands'
-      },
-      {
-        title: 'STALKERNet - Combat & Anomalies',
-        description: 'Combat, anomaly interactions, and dangerous zone activities.',
-        fields: [
-          {
-            name: '🔫 Combat Commands',
-            value: `\`${PREFIX}combat\`\n└ Hunt mutants in the zone\n\n\`${PREFIX}pvp [@user]\`\n└ Challenge another stalker to combat`
-          },
-          {
-            name: '🌀 Anomaly Commands',
-            value: `\`${PREFIX}anomaly scan\`\n└ Search for anomaly fields in your zone\n\n\`${PREFIX}anomaly enter\`\n└ Enter a detected anomaly to search for artifacts\n\n\`${PREFIX}anomaly avoid\`\n└ Avoid a detected anomaly safely\n\n\`${PREFIX}anomaly info\`\n└ View information about anomaly types`
-          },
-          {
-            name: '💎 Artifact Commands',
-            value: `\`${PREFIX}artifacts search\`\n└ Search for artifacts in your current zone\n\n\`${PREFIX}artifacts use [artifact]\`\n└ Use an artifact from your inventory\n\n\`${PREFIX}artifacts info [artifact]\`\n└ Get information about an artifact`
-          }
-        ],
-        footer: 'Page 2/3 | Combat & Anomalies'
-      },
-      {
-        title: 'STALKERNet - Economy & Progression',
-        description: 'Trading, crafting, quests, and character progression.',
-        fields: [
-          {
-            name: '💰 Trade & Economy',
-            value: `\`${PREFIX}trade list\`\n└ View vendor inventory\n\n\`${PREFIX}trade buy [item]\`\n└ Purchase items from vendors\n\n\`${PREFIX}trade sell [item]\`\n└ Sell items to vendors`
-          },
-          {
-            name: '🔧 Crafting & Maintenance',
-            value: `\`${PREFIX}craft [item]\`\n└ Craft items from materials\n\n\`${PREFIX}craft list\`\n└ View available crafting recipes\n\n\`${PREFIX}craft materials\`\n└ View your crafting materials\n\n\`${PREFIX}maintain [item]\`\n└ Repair and maintain equipment`
-          },
-          {
-            name: '📜 Quest System',
-            value: `\`${PREFIX}quest get [id]\`\n└ Accept a new quest (Aliases: q, mission)\n\n\`${PREFIX}quest list\`\n└ View your active quests\n\n\`${PREFIX}quest complete [id]\`\n└ Complete an active quest\n\n\`${PREFIX}dailyquest status\`\n└ Check daily quest status\n\n\`${PREFIX}dailyquest claim\`\n└ Claim daily quest rewards`
-          }
-        ],
-        footer: 'Page 3/3 | Economy & Progression'
-      }
-    ];
-    
-    let currentPage = 0;
-    
-    // Create the initial embed
-    const createHelpEmbed = (pageIndex) => {
-      const page = pages[pageIndex];
-      const embed = new EmbedBuilder()
-        .setColor(config.colors.primary)
-        .setTitle(page.title)
-        .setDescription(page.description)
-        .setFooter({ text: page.footer })
-        .setTimestamp();
-        
-      // Add all fields from the page
-      page.fields.forEach(field => {
-        embed.addFields(field);
-      });
-      
-      // Add note for all pages
-      embed.addFields({ 
-        name: '🚀 Getting Started', 
-        value: `Create a profile with \`${PREFIX}profile\`, join a faction with \`${PREFIX}factions join [faction]\`, then start exploring with \`${PREFIX}travel\`. Good hunting, Stalker!` 
-      });
-      
-      return embed;
-    };
-    
-    // Create navigation buttons
-    const createButtons = () => {
-      const row = new ActionRowBuilder()
-        .addComponents(
-          new ButtonBuilder()
-            .setCustomId('previous')
-            .setLabel('◀️ Previous')
-            .setStyle(ButtonStyle.Secondary)
-            .setDisabled(currentPage === 0),
-          new ButtonBuilder()
-            .setCustomId('next')
-            .setLabel('Next ▶️')
-            .setStyle(ButtonStyle.Secondary)
-            .setDisabled(currentPage === pages.length - 1)
-        );
-        
-      return row;
-    };
-    
-    // Send the initial embed with buttons
-    const helpMessage = await message.reply({
-      embeds: [createHelpEmbed(currentPage)],
-      components: [createButtons()]
+    // If a specific command is requested
+    if (args.length > 0) {
+      const commandName = args[0].toLowerCase();
+      return await showSpecificHelp(message, commandName);
+    }
+
+    // Main help embed
+    const helpEmbed = embedCreator.createEmbed(
+      "STALKERNet Command Guide",
+      "Welcome to the Zone, Stalker! Here are all available commands organized by category:",
+      "primary"
+    );
+
+    // Basic Commands
+    helpEmbed.addFields({
+      name: "🎮 Basic Commands",
+      value: [
+        `\`${PREFIX}profile\` - View your stalker profile and stats`,
+        `\`${PREFIX}inventory [page]\` - Check your equipment and items`,
+        `\`${PREFIX}help [command]\` - Show this help or specific command info`
+      ].join('\n'),
+      inline: false
     });
-    
-    // Create collector for button interactions
-    const collector = helpMessage.createMessageComponentCollector({ 
-      componentType: ComponentType.Button, 
-      time: 120000 // Collector active for 2 minutes
+
+    // Zone & Travel
+    helpEmbed.addFields({
+      name: "🗺️ Zone & Travel",
+      value: [
+        `\`${PREFIX}travel <zone>\` - Travel to different zones`,
+        `\`${PREFIX}weather\` - Check current weather conditions`,
+        `\`${PREFIX}explore\` - Explore your current zone for items and encounters`
+      ].join('\n'),
+      inline: false
     });
-    
-    // Handle button interactions
-    collector.on('collect', async interaction => {
-      // Ensure the interaction is from the original command user
-      if (interaction.user.id !== message.author.id) {
-        await interaction.reply({ 
-          content: 'These buttons are not for you!', 
-          ephemeral: true 
-        });
-        return;
-      }
-      
-      // Update the page based on the button clicked
-      if (interaction.customId === 'previous') {
-        if (currentPage > 0) {
-          currentPage--;
-        }
-      } else if (interaction.customId === 'next') {
-        if (currentPage < pages.length - 1) {
-          currentPage++;
-        }
-      }
-      
-      // Update the message
-      await interaction.update({
-        embeds: [createHelpEmbed(currentPage)],
-        components: [createButtons()]
-      });
+
+    // Anomaly & Artifacts
+    helpEmbed.addFields({
+      name: "🔬 Anomaly & Artifacts",
+      value: [
+        `\`${PREFIX}anomaly scan\` - Search for anomaly fields`,
+        `\`${PREFIX}anomaly enter\` - Enter an anomaly to find artifacts`,
+        `\`${PREFIX}anomaly info\` - Learn about anomaly types`,
+        `\`${PREFIX}artifacts\` - View information about artifacts`
+      ].join('\n'),
+      inline: false
     });
-    
-    // Handle collector end (timeout)
-    collector.on('end', () => {
-      helpMessage.edit({ components: [] }).catch(console.error);
+
+    // Combat & Hunting
+    helpEmbed.addFields({
+      name: "⚔️ Combat & Hunting",
+      value: [
+        `\`${PREFIX}combat hunt\` - Hunt mutants for loot and experience`,
+        `\`${PREFIX}combat encounter\` - Face random Zone encounters`,
+        `\`${PREFIX}pvp challenge <user>\` - Challenge another stalker to combat`
+      ].join('\n'),
+      inline: false
     });
+
+    // Equipment & Maintenance
+    helpEmbed.addFields({
+      name: "🔧 Equipment & Maintenance",
+      value: [
+        `\`${PREFIX}maintain\` - Check equipment condition`,
+        `\`${PREFIX}maintain repair <item>\` - Repair damaged equipment`,
+        `\`${PREFIX}craft list\` - View available crafting recipes`,
+        `\`${PREFIX}craft <item>\` - Craft items from materials`
+      ].join('\n'),
+      inline: false
+    });
+
+    // Trading & Economy
+    helpEmbed.addFields({
+      name: "💰 Trading & Economy",
+      value: [
+        `\`${PREFIX}trade vendor\` - Browse vendor items in settlements`,
+        `\`${PREFIX}trade buy <item>\` - Purchase items from vendors`,
+        `\`${PREFIX}trade sell <item>\` - Sell items to vendors`
+      ].join('\n'),
+      inline: false
+    });
+
+    // Faction & Quests
+    helpEmbed.addFields({
+      name: "🏴 Faction & Quests",
+      value: [
+        `\`${PREFIX}factions\` - View faction information and standings`,
+        `\`${PREFIX}quest list\` - View available quests`,
+        `\`${PREFIX}quest accept <id>\` - Accept a quest`,
+        `\`${PREFIX}dailyquest\` - Check daily quest availability`
+      ].join('\n'),
+      inline: false
+    });
+
+    helpEmbed.setFooter({ 
+      text: `Use ${PREFIX}help <command> for detailed information about a specific command`
+    });
+
+    await message.reply({ embeds: [helpEmbed] });
   },
 };
+
+async function showSpecificHelp(message, commandName) {
+  const commands = {
+    'profile': {
+      description: "View your stalker profile including health, faction, equipment, and Zone statistics",
+      usage: `${PREFIX}profile`,
+      aliases: "stats, status, info"
+    },
+    'inventory': {
+      description: "View your current inventory with pagination support. Shows all items, their weights, and values",
+      usage: `${PREFIX}inventory [page number]`,
+      aliases: "inv, items, bag"
+    },
+    'travel': {
+      description: "Travel between different zones in the Exclusion Zone. Costs rubles and time",
+      usage: `${PREFIX}travel <zone name>`,
+      aliases: "go, move",
+      examples: `${PREFIX}travel garbage\n${PREFIX}travel rookie village`
+    },
+    'anomaly': {
+      description: "Interact with anomaly fields to find valuable artifacts",
+      usage: [
+        `${PREFIX}anomaly scan - Search for anomalies`,
+        `${PREFIX}anomaly enter - Enter detected anomaly`,
+        `${PREFIX}anomaly avoid - Avoid detected anomaly`,
+        `${PREFIX}anomaly info - Learn about anomaly types`
+      ].join('\n'),
+      aliases: "anomalies, field, zone"
+    },
+    'combat': {
+      description: "Engage in combat with Zone mutants and other dangers",
+      usage: [
+        `${PREFIX}combat hunt - Hunt for mutants`,
+        `${PREFIX}combat encounter - Random Zone encounter`
+      ].join('\n'),
+      aliases: "fight, battle, hunt"
+    },
+    'craft': {
+      description: "Craft items from scavenged materials and components",
+      usage: [
+        `${PREFIX}craft list - View available recipes`,
+        `${PREFIX}craft materials - Check crafting materials`,
+        `${PREFIX}craft <item name> - Craft specific item`
+      ].join('\n'),
+      aliases: "crafting, make, create"
+    },
+    'maintain': {
+      description: "Maintain and repair your equipment to keep it in working condition",
+      usage: [
+        `${PREFIX}maintain - Check equipment status`,
+        `${PREFIX}maintain repair weapon - Repair equipped weapon`,
+        `${PREFIX}maintain repair armor - Repair equipped armor`
+      ].join('\n'),
+      aliases: "repair, fix, maintenance"
+    },
+    'trade': {
+      description: "Buy and sell items with Zone vendors in settlements",
+      usage: [
+        `${PREFIX}trade vendor - Browse vendor inventory`,
+        `${PREFIX}trade buy <item> - Purchase item`,
+        `${PREFIX}trade sell <item> - Sell item`
+      ].join('\n'),
+      aliases: "shop, vendor, buy, sell"
+    },
+    'factions': {
+      description: "View information about Zone factions and your standing with them",
+      usage: `${PREFIX}factions`,
+      aliases: "faction, rep, reputation"
+    },
+    'quest': {
+      description: "Manage quests and missions in the Zone",
+      usage: [
+        `${PREFIX}quest list - View available quests`,
+        `${PREFIX}quest accept <id> - Accept a quest`,
+        `${PREFIX}quest progress - Check quest progress`,
+        `${PREFIX}quest complete <id> - Complete a quest`
+      ].join('\n'),
+      aliases: "quests, mission, missions"
+    },
+    'weather': {
+      description: "Check current weather conditions affecting Zone activities",
+      usage: `${PREFIX}weather`,
+      aliases: "forecast, conditions"
+    },
+    'artifacts': {
+      description: "View information about Zone artifacts and their properties",
+      usage: `${PREFIX}artifacts`,
+      aliases: "artifact"
+    },
+    'pvp': {
+      description: "Challenge other stalkers to player vs player combat",
+      usage: [
+        `${PREFIX}pvp challenge <user> - Challenge another player`,
+        `${PREFIX}pvp accept - Accept PvP challenge`,
+        `${PREFIX}pvp decline - Decline PvP challenge`
+      ].join('\n'),
+      aliases: "duel, fight"
+    },
+    'explore': {
+      description: "Explore your current zone to find items, encounters, and hidden locations",
+      usage: `${PREFIX}explore`,
+      aliases: "scout, search"
+    },
+    'dailyquest': {
+      description: "Check and accept daily quests for bonus rewards",
+      usage: `${PREFIX}dailyquest`,
+      aliases: "daily, dailies"
+    }
+  };
+
+  const cmd = commands[commandName];
+  if (!cmd) {
+    const errorEmbed = embedCreator.createErrorEmbed(
+      "Command Not Found",
+      `No help available for command "${commandName}". Use \`${PREFIX}help\` to see all commands.`
+    );
+    return await message.reply({ embeds: [errorEmbed] });
+  }
+
+  const helpEmbed = embedCreator.createEmbed(
+    `Command: ${PREFIX}${commandName}`,
+    cmd.description,
+    "primary"
+  );
+
+  helpEmbed.addFields({ name: "Usage", value: `\`\`\`${cmd.usage}\`\`\``, inline: false });
+
+  if (cmd.aliases) {
+    helpEmbed.addFields({ name: "Aliases", value: cmd.aliases, inline: true });
+  }
+
+  if (cmd.examples) {
+    helpEmbed.addFields({ name: "Examples", value: `\`\`\`${cmd.examples}\`\`\``, inline: false });
+  }
+
+  await message.reply({ embeds: [helpEmbed] });
+}

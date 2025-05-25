@@ -37,6 +37,72 @@ const getDefaultData = (filename) => {
           "effect": {
             "health": 50
           }
+        },
+        "detector_basic": {
+          "id": "detector_basic",
+          "name": "Echo Detector",
+          "description": "Basic anomaly and artifact detector. Low range but reliable.",
+          "category": "detector",
+          "weight": 0.5,
+          "value": 800
+        },
+        "pm_pistol": {
+          "id": "pm_pistol",
+          "name": "PM Pistol",
+          "description": "A reliable 9mm pistol commonly used by stalkers.",
+          "category": "weapon",
+          "weight": 0.8,
+          "value": 1200,
+          "damage": 25,
+          "accuracy": 75,
+          "durability": 100
+        },
+        "leather_jacket": {
+          "id": "leather_jacket",
+          "name": "Leather Jacket",
+          "description": "A simple leather jacket that provides minimal protection.",
+          "category": "armor",
+          "weight": 2.0,
+          "value": 500,
+          "protection": {
+            "physical": 10,
+            "radiation": 5
+          },
+          "durability": 100
+        },
+        "antirad": {
+          "id": "antirad",
+          "name": "Anti-radiation drugs",
+          "description": "Reduces radiation exposure.",
+          "category": "medical",
+          "weight": 0.3,
+          "value": 300,
+          "effect": {
+            "radiation": -40
+          }
+        },
+        "vodka": {
+          "id": "vodka",
+          "name": "Vodka",
+          "description": "A bottle of vodka. Reduces radiation but impairs coordination.",
+          "category": "consumable",
+          "weight": 0.5,
+          "value": 100,
+          "effect": {
+            "radiation": -10,
+            "stamina": -20
+          }
+        },
+        "bread": {
+          "id": "bread",
+          "name": "Bread",
+          "description": "A loaf of bread. Restores some stamina.",
+          "category": "consumable",
+          "weight": 0.4,
+          "value": 50,
+          "effect": {
+            "stamina": 30
+          }
         }
       };
     
@@ -50,10 +116,95 @@ const getDefaultData = (filename) => {
           "anomalyLevel": 1,
           "type": "settlement",
           "hasVendor": true,
-          "vendorItems": ["pm_pistol", "leather_jacket"],
+          "vendorItems": ["pm_pistol", "leather_jacket", "detector_basic"],
           "travelCost": 0,
           "adjacentZones": ["garbage", "swamps"],
           "factionControl": "loners"
+        },
+        "garbage": {
+          "id": "garbage",
+          "name": "Garbage",
+          "description": "A sprawling junkyard filled with industrial waste and mild anomalies.",
+          "dangerLevel": 2,
+          "anomalyLevel": 3,
+          "type": "industrial",
+          "hasVendor": false,
+          "travelCost": 50,
+          "adjacentZones": ["rookie_village", "agroprom", "dark_valley"],
+          "factionControl": "neutral"
+        },
+        "agroprom": {
+          "id": "agroprom",
+          "name": "Agroprom",
+          "description": "An abandoned agricultural facility with underground tunnels.",
+          "dangerLevel": 3,
+          "anomalyLevel": 4,
+          "type": "industrial",
+          "hasVendor": false,
+          "travelCost": 75,
+          "adjacentZones": ["garbage", "yantar", "dark_valley"],
+          "factionControl": "duty"
+        },
+        "dark_valley": {
+          "id": "dark_valley",
+          "name": "Dark Valley",
+          "description": "A dangerous valley shrouded in perpetual twilight.",
+          "dangerLevel": 5,
+          "anomalyLevel": 6,
+          "type": "forest",
+          "hasVendor": false,
+          "travelCost": 100,
+          "adjacentZones": ["garbage", "agroprom", "red_forest"],
+          "factionControl": "bandits"
+        },
+        "yantar": {
+          "id": "yantar",
+          "name": "Yantar",
+          "description": "A research facility studying the Zone's anomalous properties.",
+          "dangerLevel": 4,
+          "anomalyLevel": 5,
+          "type": "urban",
+          "hasVendor": true,
+          "vendorItems": ["detector_advanced", "antirad", "medkit"],
+          "travelCost": 80,
+          "adjacentZones": ["agroprom", "red_forest"],
+          "factionControl": "scientists"
+        },
+        "red_forest": {
+          "id": "red_forest",
+          "name": "Red Forest",
+          "description": "A highly irradiated forest with deadly anomalies and mutants.",
+          "dangerLevel": 7,
+          "anomalyLevel": 8,
+          "type": "forest",
+          "hasVendor": false,
+          "travelCost": 150,
+          "adjacentZones": ["dark_valley", "yantar", "pripyat"],
+          "factionControl": "neutral"
+        },
+        "pripyat": {
+          "id": "pripyat",
+          "name": "Pripyat",
+          "description": "The abandoned city near the center of the Zone.",
+          "dangerLevel": 8,
+          "anomalyLevel": 9,
+          "type": "urban",
+          "hasVendor": false,
+          "travelCost": 200,
+          "adjacentZones": ["red_forest", "cnpp"],
+          "factionControl": "monolith"
+        },
+        "cnpp": {
+          "id": "cnpp",
+          "name": "CNPP",
+          "description": "The Chernobyl Nuclear Power Plant - the heart of the Zone.",
+          "dangerLevel": 10,
+          "anomalyLevel": 10,
+          "type": "center",
+          "hasVendor": false,
+          "travelCost": 250,
+          "adjacentZones": ["pripyat"],
+          "factionControl": "monolith"
         }
       };
     
@@ -251,7 +402,9 @@ const createUser = (userId, username) => {
       detect: 0,
       explore: 0
     },
-    // Add durability tracking
+    // Add durability tracking for individual items
+    durability: {},
+    // Legacy equipment durability (keep for compatibility)
     equipmentDurability: {
       weapon: 100,
       armor: 100

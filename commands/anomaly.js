@@ -15,9 +15,9 @@ const ANOMALY_TYPES = {
     damageType: "burn",
     damageRange: [15, 30],
     warning: "You feel a wave of heat as you approach...",
-    artifacts: ["fireball", "crystal_thorn", "droplets"],
     artifactChance: 0.4,
-    emoji: "🔥"
+    emoji: "🔥",
+    artifactTypes: ["thermal"]
   },
   electric: {
     name: "Electrical Anomaly",
@@ -25,9 +25,9 @@ const ANOMALY_TYPES = {
     damageType: "electric shock",
     damageRange: [20, 35],
     warning: "Your hair stands on end as electrical charges build up around you...",
-    artifacts: ["battery", "sparkler", "flash"],
     artifactChance: 0.35,
-    emoji: "⚡"
+    emoji: "⚡",
+    artifactTypes: ["electrical"]
   },
   gravitational: {
     name: "Gravitational Anomaly",
@@ -35,9 +35,9 @@ const ANOMALY_TYPES = {
     damageType: "gravitational crush",
     damageRange: [25, 40],
     warning: "You feel an unseen force pulling at your equipment...",
-    artifacts: ["stone_flower", "night_star", "soul"],
     artifactChance: 0.3,
-    emoji: "🌀"
+    emoji: "🌀",
+    artifactTypes: ["gravitational"]
   },
   chemical: {
     name: "Chemical Anomaly",
@@ -45,9 +45,9 @@ const ANOMALY_TYPES = {
     damageType: "acid",
     damageRange: [10, 25],
     warning: "Your eyes water and your throat burns from acrid fumes...",
-    artifacts: ["bubble", "jellyfish", "slug"],
     artifactChance: 0.45,
-    emoji: "☣️"
+    emoji: "☣️",
+    artifactTypes: ["chemical"]
   },
   psychic: {
     name: "Psychic Anomaly",
@@ -55,9 +55,9 @@ const ANOMALY_TYPES = {
     damageType: "psi-emissions",
     damageRange: [15, 30],
     warning: "You hear whispers and see movement from the corner of your eye...",
-    artifacts: ["brain", "moonlight", "compass"],
     artifactChance: 0.25,
-    emoji: "🧠"
+    emoji: "🧠",
+    artifactTypes: ["psychic"]
   }
 };
 
@@ -313,7 +313,7 @@ module.exports = {
       // Get available artifacts from data
       const availableArtifacts = getAvailableArtifacts();
 
-      // Determine which artifacts can be found based on rarity and zone
+      // Determine which artifacts can be found based on rarity, zone, and anomaly type
       const possibleArtifacts = Object.keys(availableArtifacts).filter(artifactId => {
         const artifact = availableArtifacts[artifactId];
         // Higher level zones can find rarer artifacts
@@ -321,6 +321,11 @@ module.exports = {
 
         // Check if artifact can be found in current zone
         if (artifact.zones && !artifact.zones.includes(currentZone.name)) {
+          return false;
+        }
+
+        // Check if artifact matches anomaly type (if artifact has type specified)
+        if (artifact.anomalyType && !anomaly.artifactTypes.includes(artifact.anomalyType)) {
           return false;
         }
 
