@@ -376,35 +376,26 @@ module.exports = {
  * Ensure all crafting materials exist in the item database
  * @param {Object} items - The items database
  */
-function ensureCraftingMaterialsExist(items) {
+function ensureCraftingMaterialsExist() {
   for (const material of CRAFTING_MATERIALS) {
-    if (!items[material.id]) {
-      const newItem = {
-        id: material.id,
-        name: material.name,
-        description: `A crafting material used in various recipes.`,
-        category: 'crafting_material',
-        weight: material.weight,
-        value: material.value
-      };
-      
-      dataManager.saveItem(material.id, newItem);
-    }
+    dataManager.addCraftingMaterialItem(
+      material.id,
+      material.name,
+      `A crafting material used in various recipes.`,
+      material.value,
+      material.weight
+    );
   }
   
-  if (!items['healing_mixture']) {
-    const healingMixture = {
-      id: 'healing_mixture',
-      name: 'Healing Mixture',
-      description: 'A mixture of herbs and mutant parts with healing properties.',
-      category: 'medical',
-      weight: 0.3,
-      value: 250,
-      effect: {
-        health: 40
-      }
-    };
-    
-    dataManager.saveItem('healing_mixture', healingMixture);
-  }
+  // Add healing mixture recipe result
+  dataManager.createItem('healing_mixture', {
+    name: 'Healing Mixture',
+    description: 'A mixture of herbs and mutant parts with healing properties.',
+    category: 'medical',
+    weight: 0.3,
+    value: 250,
+    effect: {
+      health: 40
+    }
+  });
 }

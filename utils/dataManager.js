@@ -1,3 +1,4 @@
+
 const fs = require('fs');
 const path = require('path');
 const config = require('../config');
@@ -9,6 +10,156 @@ const dataDir = path.join(__dirname, '../data');
 if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
+
+// Default data for each file type
+const getDefaultData = (filename) => {
+  switch (filename) {
+    case 'users.json':
+      return { default: {} };
+    
+    case 'items.json':
+      return {
+        "junk_bolt": {
+          "id": "junk_bolt",
+          "name": "Bolt",
+          "description": "A common bolt used to detect anomalies. Every stalker carries some.",
+          "category": "junk",
+          "weight": 0.1,
+          "value": 5
+        },
+        "medkit": {
+          "id": "medkit",
+          "name": "Medkit",
+          "description": "Basic medical supplies to treat wounds and restore health.",
+          "category": "medical",
+          "weight": 0.5,
+          "value": 200,
+          "effect": {
+            "health": 50
+          }
+        }
+      };
+    
+    case 'zones.json':
+      return {
+        "rookie_village": {
+          "id": "rookie_village",
+          "name": "Rookie Village",
+          "description": "The first settlement newcomers encounter in the Zone.",
+          "dangerLevel": 1,
+          "anomalyLevel": 1,
+          "type": "settlement",
+          "hasVendor": true,
+          "vendorItems": ["pm_pistol", "leather_jacket"],
+          "travelCost": 0,
+          "adjacentZones": ["garbage", "swamps"],
+          "factionControl": "loners"
+        }
+      };
+    
+    case 'quests.json':
+      return {
+        "q001": {
+          "id": "q001",
+          "name": "First Steps",
+          "description": "A simple reconnaissance mission to help you get familiar with the Zone.",
+          "objective": "Travel to the Garbage and scout for items.",
+          "availableZones": ["Cordon"],
+          "faction": "neutral",
+          "minRank": 1,
+          "difficulty": 1,
+          "rewardRubles": 500,
+          "rewardReputation": 10
+        }
+      };
+    
+    case 'factions.json':
+      return {
+        "Loners": {
+          "name": "Loners",
+          "description": "Independent stalkers with no strong allegiance.",
+          "leader": "Sidorovich",
+          "baseZone": "Cordon",
+          "bonuses": {
+            "generalBonus": 5
+          },
+          "relations": {
+            "Duty": "neutral",
+            "Freedom": "neutral",
+            "Bandits": "hostile"
+          }
+        }
+      };
+    
+    case 'mutants.json':
+      return {
+        "flesh": {
+          "id": "flesh",
+          "name": "Flesh",
+          "description": "Mutated boars with deformed bodies and distinctive snouts.",
+          "health": 70,
+          "damage": 15,
+          "accuracy": 50,
+          "rarity": 3,
+          "zones": ["Cordon", "Garbage", "Swamps"],
+          "reputation": 8,
+          "minRubles": 100,
+          "maxRubles": 200,
+          "drops": [
+            { "itemId": "junk_parts", "chance": 0.5 },
+            { "itemId": "medkit", "chance": 0.1 }
+          ]
+        }
+      };
+    
+    case 'artifacts.json':
+      return {
+        "medusa": {
+          "id": "medusa",
+          "name": "Medusa",
+          "description": "A common electrical artifact formed in electro anomalies.",
+          "rarity": 3,
+          "weight": 0.5,
+          "itemId": "artifact_medusa",
+          "zones": ["Swamps", "Garbage", "Yantar"],
+          "effects": [
+            "+10% Electrical resistance",
+            "-5 Health/minute while equipped"
+          ]
+        }
+      };
+    
+    case 'encounters.json':
+      return {
+        "flesh": {
+          "id": "flesh",
+          "name": "Flesh",
+          "type": "Mutated pig",
+          "traits": "Passive until provoked; fleshy, malformed body.",
+          "attack": "Short-range charge or bite.",
+          "behavior": "Grazing in herds; runs if threatened.",
+          "location": "Open fields and farmlands.",
+          "image": "flesh.png",
+          "difficulty": 3,
+          "danger": "Low",
+          "xp": 30,
+          "loot": [
+            { "itemId": "mutant_part_flesh", "name": "Flesh Eye", "value": 300, "chance": 0.8 }
+          ],
+          "rubles": {
+            "min": 100,
+            "max": 200
+          },
+          "health": 80,
+          "damage": 15,
+          "escape_chance": 0.6
+        }
+      };
+    
+    default:
+      return {};
+  }
+};
 
 // Create default data files if they don't exist
 const initializeDataFiles = () => {
@@ -26,7 +177,7 @@ const initializeDataFiles = () => {
   for (const file of defaultFiles) {
     const filePath = path.join(dataDir, file);
     if (!fs.existsSync(filePath)) {
-      const defaultData = file === 'users.json' ? { default: {} } : {};
+      const defaultData = getDefaultData(file);
       fs.writeFileSync(filePath, JSON.stringify(defaultData, null, 2));
       console.log(`Created default ${file}`);
     }
@@ -66,11 +217,11 @@ const getUser = (userId) => {
   return users[userId];
 };
 
-// Create new user
+// Create new user with durability system
 const createUser = (userId, username) => {
   const users = loadData('users.json');
   
-  // Create new user with default values
+  // Create new user with default values including durability
   const newUser = {
     id: userId,
     name: username,
@@ -99,6 +250,11 @@ const createUser = (userId, username) => {
       camp: 0,
       detect: 0,
       explore: 0
+    },
+    // Add durability tracking
+    equipmentDurability: {
+      weapon: 100,
+      armor: 100
     }
   };
   
@@ -157,28 +313,70 @@ const getEncounters = () => {
   return loadData('encounters.json');
 };
 
-// Add a mutant part item to the items database
-const addMutantPartItem = (itemId, name, description, value, weight = 0.5) => {
+// Centralized item creation system
+const createItem = (itemId, itemData) => {
   const items = loadData('items.json');
   
   // Check if the item already exists
   if (!items[itemId]) {
-    // Create the new item
     items[itemId] = {
       id: itemId,
-      name: name,
-      description: description,
-      category: 'mutant_part',
-      weight: weight,
-      value: value
+      ...itemData
     };
     
-    // Save the updated items data
     saveData('items.json', items);
     return true;
   }
   
   return false;
+};
+
+// Add artifact to items database (replaces scattered artifact creation)
+const addArtifactItem = (artifactId, artifactData) => {
+  return createItem(artifactId, {
+    name: artifactData.name,
+    description: artifactData.description,
+    category: 'artifact',
+    weight: artifactData.weight,
+    value: artifactData.value || 1000,
+    rarity: artifactData.rarity,
+    effects: artifactData.effects
+  });
+};
+
+// Add crafting material item (replaces scattered crafting material creation)
+const addCraftingMaterialItem = (itemId, name, description, value, weight = 0.5) => {
+  return createItem(itemId, {
+    name: name,
+    description: description,
+    category: 'crafting_material',
+    weight: weight,
+    value: value
+  });
+};
+
+// Add a mutant part item to the items database
+const addMutantPartItem = (itemId, name, description, value, weight = 0.5) => {
+  return createItem(itemId, {
+    name: name,
+    description: description,
+    category: 'mutant_part',
+    weight: weight,
+    value: value
+  });
+};
+
+// Initialize all base game items
+const initializeBaseItems = () => {
+  const artifacts = getArtifacts();
+  const items = getItems();
+  
+  // Add all artifacts to items database
+  for (const [artifactId, artifactData] of Object.entries(artifacts)) {
+    addArtifactItem(artifactId, artifactData);
+  }
+  
+  console.log('Base game items initialized');
 };
 
 module.exports = {
@@ -194,5 +392,9 @@ module.exports = {
   getMutants,
   getArtifacts,
   getEncounters,
-  addMutantPartItem
+  createItem,
+  addArtifactItem,
+  addCraftingMaterialItem,
+  addMutantPartItem,
+  initializeBaseItems
 };

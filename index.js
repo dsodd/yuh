@@ -50,6 +50,9 @@ for (const file of commandFiles) {
 // Initialize the data directories if they don't exist
 dataManager.initializeDataFiles();
 
+// Initialize base game items
+dataManager.initializeBaseItems();
+
 // Event: Client Ready
 client.once(Events.ClientReady, (readyClient) => {
   console.log(`STALKERNet is online! Logged in as ${readyClient.user.tag}`);

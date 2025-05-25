@@ -10,25 +10,25 @@ module.exports = {
   name: 'maintain',
   aliases: ['repair', 'fix', 'maintenance'],
   description: 'Maintain and repair your equipment',
-  
+
   async execute(message, args) {
     const userId = message.author.id;
-    
+
     // Get user data or create if not exists
     let user = dataManager.getUser(userId);
     if (!user) {
       user = dataManager.createUser(userId, message.author.username);
       await message.reply(`Welcome to the Zone, Stalker! Your profile has been created.`);
     }
-    
+
     // Get items data
     const items = dataManager.getItems();
-    
+
     // If no args, show maintenance status of equipped items
     if (!args.length) {
       // Get equipped items
       const equippedItems = [];
-      
+
       if (user.equipped.weapon) {
         const weapon = items[user.equipped.weapon];
         if (weapon) {
@@ -40,7 +40,7 @@ module.exports = {
           });
         }
       }
-      
+
       if (user.equipped.armor) {
         const armor = items[user.equipped.armor];
         if (armor) {
@@ -52,7 +52,7 @@ module.exports = {
           });
         }
       }
-      
+
       // If no equipped items
       if (equippedItems.length === 0) {
         const noItemsEmbed = embedCreator.createEmbed(
@@ -63,20 +63,20 @@ module.exports = {
         await message.reply({ embeds: [noItemsEmbed] });
         return;
       }
-      
+
       // Create status embed
       const statusEmbed = embedCreator.createEmbed(
         "Equipment Status",
         "Current condition of your equipment:",
         "primary"
       );
-      
+
       // Add each item
       for (const equipped of equippedItems) {
         // Determine condition text and color
         let condition;
         let conditionColor;
-        
+
         if (equipped.durability >= 90) {
           condition = "Excellent";
           conditionColor = "🟢";
@@ -96,120 +96,93 @@ module.exports = {
           condition = "Critical";
           conditionColor = "⚠️";
         }
-        
+
         statusEmbed.addFields({ 
           name: `${equipped.item.name} (${equipped.type})`, 
           value: `${conditionColor} Condition: ${condition} (${equipped.durability}%)\nRepair cost: ${calculateRepairCost(equipped.item, equipped.durability)} RU`, 
           inline: false 
         });
       }
-      
+
       statusEmbed.setFooter({ text: `Use ${PREFIX}maintain repair <item name> to repair an item` });
       await message.reply({ embeds: [statusEmbed] });
       return;
     }
-    
+
     // Handle subcommands
     const subcommand = args[0].toLowerCase();
-    
+
     if (subcommand === 'repair') {
-      // Check if item name is provided
-      if (args.length < 2) {
-        const errorEmbed = embedCreator.createErrorEmbed(
-          "Missing Item",
-          `Please specify an item to repair. Usage: \`${PREFIX}maintain repair <item name>\``
-        );
-        await message.reply({ embeds: [errorEmbed] });
+      const items = dataManager.getItems();
+
+      if (!args[1]) {
+        // Show equipment durability status
+        let statusMsg = `🔧 **Equipment Durability Status**\n\n`;
+
+        if (user.equipped.weapon) {
+          const weaponDurability = user.equipmentDurability?.weapon || 100;
+          const weaponName = items[user.equipped.weapon]?.name || 'Unknown Weapon';
+          statusMsg += `**Weapon:** ${weaponName} - ${weaponDurability}%\n`;
+        }
+
+        if (user.equipped.armor) {
+          const armorDurability = user.equipmentDurability?.armor || 100;
+          const armorName = items[user.equipped.armor]?.name || 'Unknown Armor';
+          statusMsg += `**Armor:** ${armorName} - ${armorDurability}%\n`;
+        }
+
+        if (!user.equipped.weapon && !user.equipped.armor) {
+          statusMsg += `No equipment currently equipped.\n`;
+        }
+
+        statusMsg += `\nUse \`${PREFIX}maintain repair weapon\` or \`${PREFIX}maintain repair armor\` to repair equipment.`;
+        statusMsg += `\nRepair costs: **50 rubles per durability point**`;
+
+        await message.reply(statusMsg);
         return;
       }
-      
-      // Get the item name
-      const itemName = args.slice(1).join(' ');
-      
-      // Find equipped item matching the name
-      let itemToRepair = null;
-      let itemId = null;
-      let itemType = null;
-      
-      if (user.equipped.weapon) {
-        const weapon = items[user.equipped.weapon];
-        if (weapon && weapon.name.toLowerCase() === itemName.toLowerCase()) {
-          itemToRepair = weapon;
-          itemId = user.equipped.weapon;
-          itemType = 'weapon';
-        }
-      }
-      
-      if (!itemToRepair && user.equipped.armor) {
-        const armor = items[user.equipped.armor];
-        if (armor && armor.name.toLowerCase() === itemName.toLowerCase()) {
-          itemToRepair = armor;
-          itemId = user.equipped.armor;
-          itemType = 'armor';
-        }
-      }
-      
-      // If item not found
-      if (!itemToRepair) {
-        const errorEmbed = embedCreator.createErrorEmbed(
-          "Item Not Found",
-          `You don't have an equipped item called "${itemName}". Check your spelling or equip the item first.`
-        );
-        await message.reply({ embeds: [errorEmbed] });
+
+      const equipmentType = args[1].toLowerCase();
+
+      if (equipmentType !== 'weapon' && equipmentType !== 'armor') {
+        await message.reply(`Please specify 'weapon' or 'armor' to repair.`);
         return;
       }
-      
-      // Initialize durability object if not exists
-      if (!user.durability) {
-        user.durability = {};
+
+      if (!user.equipped[equipmentType]) {
+        await message.reply(`You don't have any ${equipmentType} equipped.`);
+        return;
       }
-      
-      // Get current durability
-      const currentDurability = user.durability[itemId] || 100;
-      
-      // If already at 100%
+
+      // Initialize durability if missing
+      if (!user.equipmentDurability) {
+        user.equipmentDurability = { weapon: 100, armor: 100 };
+      }
+
+      const currentDurability = user.equipmentDurability[equipmentType] || 100;
+
       if (currentDurability >= 100) {
-        const fullRepairEmbed = embedCreator.createEmbed(
-          "Repair Not Needed",
-          `Your ${itemToRepair.name} is already in perfect condition.`,
-          "primary"
-        );
-        await message.reply({ embeds: [fullRepairEmbed] });
+        await message.reply(`Your ${equipmentType} is already in perfect condition!`);
         return;
       }
-      
-      // Calculate repair cost
-      const repairCost = calculateRepairCost(itemToRepair, currentDurability);
-      
-      // Check if user has enough rubles
+
+      const repairCost = Math.floor((100 - currentDurability) * 50);
+
       if (user.rubles < repairCost) {
-        const notEnoughRublesEmbed = embedCreator.createErrorEmbed(
-          "Insufficient Funds",
-          `You need ${repairCost} rubles to repair your ${itemToRepair.name}, but you only have ${user.rubles} rubles.`
-        );
-        await message.reply({ embeds: [notEnoughRublesEmbed] });
+        await message.reply(`You need **${repairCost} rubles** to fully repair your ${equipmentType}. You only have **${user.rubles} rubles**.`);
         return;
       }
-      
-      // Update durability and deduct cost
-      user.durability[itemId] = 100;
+
+      // Perform repair
       user.rubles -= repairCost;
-      
-      // Save user data
+      user.equipmentDurability[equipmentType] = 100;
+
+      const equipmentName = items[user.equipped[equipmentType]]?.name || `Unknown ${equipmentType}`;
+
       dataManager.saveUser(user);
-      
-      // Create success embed
-      const repairEmbed = embedCreator.createSuccessEmbed(
-        "Repair Complete",
-        `Your ${itemToRepair.name} has been repaired to perfect condition for ${repairCost} rubles.`
-      );
-      
-      repairEmbed.addFields(
-        { name: "Current Condition", value: "Excellent (100%)", inline: true },
-        { name: "Rubles Remaining", value: `${user.rubles}`, inline: true }
-      );
-      
-      await message.reply({ embeds: [repairEmbed] });
+
+      await message.reply(`🔧 Successfully repaired your **${equipmentName}** for **${repairCost} rubles**!\nDurability restored to 100%.`);
+      return;
     } else {
       // Unknown subcommand
       const errorEmbed = embedCreator.createErrorEmbed(
@@ -232,7 +205,7 @@ function calculateRepairCost(item, currentDurability) {
   // Lower durability means higher repair costs
   const percentageDamaged = 100 - currentDurability;
   const baseCost = Math.round((item.value * 0.01) * percentageDamaged);
-  
+
   // Minimum repair cost
   return Math.max(25, baseCost);
 }
